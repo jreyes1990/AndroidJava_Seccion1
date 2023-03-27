@@ -2,13 +2,15 @@ package com.example.seccion_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
   private Button btn;
+  private final String GREETER = "Hello from the other side!";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -16,18 +18,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     setContentView(R.layout.activity_main);
 
     btn = (Button) findViewById(R.id.buttonMain);
-    btn.setOnClickListener(this);
 
-    /*btn.setOnClickListener(new View.OnClickListener() {
+    btn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Toast.makeText(MainActivity.this, "Button Clicked from the code!...", Toast.LENGTH_SHORT).show();
+        //Acceder al segundo Activity y mandarle un String
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class); //Creamos Intent
+        intent.putExtra("greeter2", GREETER); //Aniadimos Intent
+        startActivity(intent); //Lanzamos Intent
+
+        //Toast.makeText(MainActivity.this, "Button Clicked from the code!...", Toast.LENGTH_SHORT).show();
       }
-    });*/
+    });
   }
 
-  @Override
-  public void onClick(View v) {
-    Toast.makeText(MainActivity.this, "Button Clicked from the code!..., Use implements View.OnClickListener", Toast.LENGTH_SHORT).show();
-  }
 }
