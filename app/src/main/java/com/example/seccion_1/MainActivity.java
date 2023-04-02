@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(View v) {
         //Acceder al segundo Activity y mandarle un String
         Intent intent = new Intent(MainActivity.this, SecondActivity.class); //Creamos Intent
-        intent.putExtra("greeter2", GREETER); //Aniadimos Intent
+        intent.putExtra("greeter", GREETER); //Aniadimos Intent
         startActivity(intent); //Lanzamos Intent
 
         //Toast.makeText(MainActivity.this, "Button Clicked from the code!...", Toast.LENGTH_SHORT).show();
