@@ -2,6 +2,7 @@ package com.example.seccion_1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
@@ -39,7 +40,7 @@ public class ThirdActivity extends AppCompatActivity {
       public void onClick(View view) {
         String phoneNumber = editTextPhone.getText().toString();
 
-        if (phoneNumber != null){
+        if (phoneNumber != null && !phoneNumber.isEmpty()){
           // Comprobar version actual de Android que estamos corriendo
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             // Metodo para verificar las versiones nuevas
@@ -47,6 +48,8 @@ public class ThirdActivity extends AppCompatActivity {
           }else{
             OlderVersions(phoneNumber);
           }
+        }else{
+          Toast.makeText(ThirdActivity.this, "Insert a phone number", Toast.LENGTH_SHORT).show();
         }
       }
 
@@ -77,6 +80,7 @@ public class ThirdActivity extends AppCompatActivity {
             // Concedio su permiso
             String phoneNumber = editTextPhone.getText().toString();
             Intent intentCall = new Intent(Intent.ACTION_CALL, Uri.parse("tel: "+ phoneNumber));
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) return;
             startActivity(intentCall);
           }else{
             // No concedio su permiso
