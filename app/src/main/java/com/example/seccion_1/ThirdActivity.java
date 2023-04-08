@@ -96,13 +96,33 @@ public class ThirdActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         String url = editTextWeb.getText().toString();
+        String email = "jreyes";
 
         if (url != null && !url.isEmpty()){
           // Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse("https://"+ url));
           Intent intentWeb = new Intent();
           intentWeb.setAction(Intent.ACTION_VIEW);
           intentWeb.setData(Uri.parse("http://"+ url));
-          startActivity(intentWeb);
+
+          // Contactos
+          Intent intentContacts = new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people"));
+
+          // Email Rapido
+          Intent intentMailTo = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"+ email));
+
+          // Email Completo
+          Intent intentMail = new Intent(Intent.ACTION_VIEW, Uri.parse(email));
+          intentMail.setType("plain/text");
+          intentMail.putExtra(Intent.EXTRA_SUBJECT, "Mail's title");
+          intentMail.putExtra(Intent.EXTRA_TEXT, "Hi there, I love MyForm app, but..... ");
+          intentMail.putExtra(Intent.EXTRA_EMAIL, new String[] {"jreyes@madretierra.com.gt", "jarl1990mt@gmail.com"});
+
+          // Telefono 2, sin permisos requeridos
+          Intent intentPhone = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: 666111222"));
+
+          startActivity(intentPhone);
+          // startActivity(intentContacts);
+          // startActivity(intentWeb);
         }
       }
     });
