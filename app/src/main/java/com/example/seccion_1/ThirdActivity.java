@@ -96,7 +96,7 @@ public class ThirdActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         String url = editTextWeb.getText().toString();
-        String email = "jreyes";
+        String email = "jreyes@gmail.com";
 
         if (url != null && !url.isEmpty()){
           // Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse("https://"+ url));
@@ -112,6 +112,7 @@ public class ThirdActivity extends AppCompatActivity {
 
           // Email Completo
           Intent intentMail = new Intent(Intent.ACTION_VIEW, Uri.parse(email));
+          intentMail.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
           intentMail.setType("plain/text");
           intentMail.putExtra(Intent.EXTRA_SUBJECT, "Mail's title");
           intentMail.putExtra(Intent.EXTRA_TEXT, "Hi there, I love MyForm app, but..... ");
@@ -120,7 +121,9 @@ public class ThirdActivity extends AppCompatActivity {
           // Telefono 2, sin permisos requeridos
           Intent intentPhone = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: 666111222"));
 
-          startActivity(intentPhone);
+          startActivity(intentMail);
+
+          // startActivity(intentPhone);
           // startActivity(intentContacts);
           // startActivity(intentWeb);
         }
