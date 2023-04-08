@@ -1,10 +1,12 @@
 package com.example.seccion_1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -24,6 +26,7 @@ public class ThirdActivity extends AppCompatActivity {
   private ImageButton imgBtnWeb;
   private ImageButton imgBtnCamera;
   private final int PHONE_CALL_CODE = 100;
+  private final int PICTURE_FROM_CAMERA = 50;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -117,11 +120,12 @@ public class ThirdActivity extends AppCompatActivity {
           intentMail.putExtra(Intent.EXTRA_SUBJECT, "Mail's title");
           intentMail.putExtra(Intent.EXTRA_TEXT, "Hi there, I love MyForm app, but..... ");
           intentMail.putExtra(Intent.EXTRA_EMAIL, new String[] {"jreyes@madretierra.com.gt", "jarl1990mt@gmail.com"});
+          // startActivity(Intent.createChooser(intentMail, "Elige cliente de correo"));
 
           // Telefono 2, sin permisos requeridos
           Intent intentPhone = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: 666111222"));
 
-          startActivity(intentMail);
+          // startActivity(intentMail);
 
           // startActivity(intentPhone);
           // startActivity(intentContacts);
@@ -130,6 +134,32 @@ public class ThirdActivity extends AppCompatActivity {
       }
     });
 
+    // Boton para Abrir Camara
+    imgBtnCamera.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intentCamara = new Intent("android.media.action.IMAGE_CAPTURE");
+
+        startActivityForResult(intentCamara, PICTURE_FROM_CAMERA);
+        // startActivity(intentCamara);
+      }
+    });
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    switch (requestCode){
+      case PICTURE_FROM_CAMERA:
+        if (resultCode == Activity.RESULT_OK){
+          String result = data.toUri(0);
+          Toast.makeText(this, "Result: "+ result, Toast.LENGTH_LONG).show();
+        }else{
+          Toast.makeText(this, "There was an error with the picture, try again", Toast.LENGTH_LONG).show();
+        }
+        break;
+      default:
+        super.onActivityResult(requestCode, resultCode, data);
+    }
   }
 
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
