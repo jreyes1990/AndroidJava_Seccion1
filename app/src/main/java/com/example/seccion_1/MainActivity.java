@@ -17,6 +17,10 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    // Forzar y cambiar icono en el Action Bar
+    getSupportActionBar().setDisplayShowHomeEnabled(true);
+    getSupportActionBar().setIcon(R.mipmap.ic_myicon);
+
     btn = (Button) findViewById(R.id.buttonMain);
 
     btn.setOnClickListener(new View.OnClickListener() {
